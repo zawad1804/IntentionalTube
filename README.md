@@ -1,0 +1,95 @@
+# IntentionalTube
+
+IntentionalTube is a Chrome extension that reduces YouTube distractions and helps you stay focused with intentional viewing, focus timers, and lightweight progress tracking.
+
+## What It Does
+
+- Blocks common distraction surfaces on YouTube.
+- Prompts you to set an intention before watching a video.
+- Shows your active intention on-screen while watching.
+- Includes a focus timer (Pomodoro-style) with optional auto-blocking.
+- Tracks weekly focus efficiency based on on-task vs off-task time.
+
+## Features
+
+### Blocking Controls
+
+You can toggle each control from the popup:
+
+- Master blocking
+- Hide home recommendations
+- Hide related sidebar suggestions
+- Hide comments, notifications, and live chat
+- Blur thumbnails
+- Hide end-screen video wall
+- Force autoplay off
+- Auto-pause video when switching tabs
+
+### Intention Gate
+
+- On YouTube watch pages, IntentionalTube can require a written intention before unlocking the video.
+- Your current intention appears in a small ambient banner while watching.
+
+### Focus Timer
+
+- Start/stop a focus timer from the popup.
+- Optional setting: automatically enable master blocking when a timer starts.
+- Floating on-page timer appears on watch pages and can be dragged to reposition.
+- Timer auto-pauses when you leave the tracked tab/window and resumes when you return.
+
+### Weekly Focus Efficiency
+
+The popup shows:
+
+- Weekly efficiency percentage
+- Daily chart for the last 7 days
+- On-task/off-task minutes summary
+
+## Install (Developer Mode)
+
+### Google Chrome
+
+1. Open `chrome://extensions`.
+2. Enable **Developer mode** (top-right).
+3. Click **Load unpacked**.
+4. Select this project folder:
+   - `youtube disctraction blocking extension`
+5. Pin **IntentionalTube** from the Extensions menu.
+
+### Microsoft Edge
+
+1. Open `edge://extensions`.
+2. Enable **Developer mode**.
+3. Click **Load unpacked**.
+4. Select this project folder.
+5. Pin **IntentionalTube** from the Extensions menu.
+
+## How To Use
+
+1. Open YouTube.
+2. Click the IntentionalTube extension icon.
+3. Keep **Master blocking** on.
+4. Turn on/off specific controls based on your study style.
+5. In **Intention**, enter a concrete goal and click **Set Intention**.
+6. In **Focus Timer**, choose minutes and click **Start**.
+7. While watching, stay aligned with your intention banner and timer.
+8. Check **Weekly Focus Efficiency** in the popup to review consistency.
+
+## Notes
+
+- Works on both `youtube.com` and `m.youtube.com` pages listed in the manifest.
+- Your settings and analytics are stored locally via Chrome extension storage.
+- No backend server is required.
+
+## Project Structure
+
+- `manifest.json`: Extension manifest (MV3)
+- `background.js`: Service worker, settings, pomodoro, analytics
+- `content.js`: YouTube page behavior and UI overlays
+- `popup.html`: Popup UI layout
+- `popup.css`: Popup styles
+- `popup.js`: Popup logic and controls
+
+## License
+
+No license file is currently included. Add one if you plan to distribute publicly.

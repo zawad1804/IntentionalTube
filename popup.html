@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IntentionalTube</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="panel">
+      <header class="panel-header">
+        <h1>IntentionalTube</h1>
+        <p>Steer YouTube with purpose.</p>
+      </header>
+
+      <section class="card">
+        <h2>Blocking Controls</h2>
+        <div id="toggle-list" class="toggle-list"></div>
+      </section>
+
+      <section class="card">
+        <h2>Intention</h2>
+        <div class="stack">
+          <input id="intention-input" type="text" placeholder="What is your study goal?" />
+          <button id="save-intention" class="btn">Set Intention</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Focus Timer</h2>
+        <div class="timer-wrap">
+          <div id="timer-value" class="timer-value">25:00</div>
+          <div class="timer-actions">
+            <input id="duration-input" type="number" min="1" max="180" value="25" />
+            <button id="start-timer" class="btn">Start</button>
+            <button id="stop-timer" class="btn ghost">Stop</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Weekly Focus Efficiency</h2>
+        <div id="efficiency-value" class="efficiency-value">0%</div>
+        <div id="chart" class="chart"></div>
+        <p id="stats-summary" class="subtle"></p>
+      </section>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
