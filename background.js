@@ -7,8 +7,10 @@ const DEFAULT_SETTINGS = {
   enableIntentionGate: true,
   disableAutoplay: true,
   hideEndscreen: true,
+  hideFullscreenEndscreen: true,
   showFloatingTimer: true,
   autoPauseVideoOnTabSwitch: true,
+  autoResumeVideoOnReturn: false,
   floatingTimerPosition: null,
   focusModeWithTimer: true,
   activeIntention: ""

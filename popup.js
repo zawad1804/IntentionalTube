@@ -7,8 +7,10 @@ const TOGGLE_FIELDS = [
   ["enableIntentionGate", "Enable intention gate"],
   ["disableAutoplay", "Force autoplay off"],
   ["hideEndscreen", "Hide end-screen wall"],
+  ["hideFullscreenEndscreen", "Hide fullscreen end-screen wall"],
   ["showFloatingTimer", "Show floating on-page timer"],
   ["autoPauseVideoOnTabSwitch", "Auto-pause video on tab switch"],
+  ["autoResumeVideoOnReturn", "Auto-resume video when returning"],
   ["focusModeWithTimer", "Start blocking with timer"]
 ];
 

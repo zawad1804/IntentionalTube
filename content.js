@@ -7,8 +7,10 @@ const DEFAULT_SETTINGS = {
   enableIntentionGate: true,
   disableAutoplay: true,
   hideEndscreen: true,
+  hideFullscreenEndscreen: true,
   showFloatingTimer: true,
   autoPauseVideoOnTabSwitch: true,
+  autoResumeVideoOnReturn: false,
   floatingTimerPosition: null,
   focusModeWithTimer: true,
   activeIntention: ""
@@ -42,6 +44,8 @@ let pomodoroState = { ...DEFAULT_POMODORO };
 let floatingTimerIntervalId = null;
 let floatingTimerDragState = null;
 let lastAutoPauseAt = 0;
+let lastAutoResumeAt = 0;
+let shouldAutoResumeAfterTabReturn = false;
 
 (async function initialize() {
   await loadSettings();
@@ -113,12 +117,20 @@ function setupListeners() {
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
       pauseVideoForTabSwitch();
+    } else {
+      resumeVideoForTabReturn();
     }
   });
 
   window.addEventListener("blur", () => {
     if (document.hidden) {
       pauseVideoForTabSwitch();
+    }
+  });
+
+  window.addEventListener("focus", () => {
+    if (!document.hidden) {
+      resumeVideoForTabReturn();
     }
   });
 }
@@ -469,8 +481,27 @@ function ensureStyles() {
   if (settings.hideEndscreen) {
     cssRules.push(`
       .ytp-endscreen-content,
+      .html5-endscreen,
+      .ytp-videowall-still,
+      .ytp-videowall-still-image,
+      .ytp-videowall-still-info,
+      .ytp-endscreen-next,
+      .ytp-upnext,
       .ytp-ce-element,
       .ytp-ce-covering-overlay {
+        display: none !important;
+      }
+    `);
+  }
+
+  if (settings.hideFullscreenEndscreen) {
+    cssRules.push(`
+      .ytp-fullscreen-endscreen,
+      .ytp-fullscreen-grid-stills-container,
+      .ytp-fullscreen-grid-still,
+      .ytp-fullscreen-grid-still-info,
+      .ytp-fullscreen-grid-still-image,
+      .ytp-fullscreen-grid-still-overlay {
         display: none !important;
       }
     `);
@@ -747,10 +778,42 @@ function pauseVideoForTabSwitch() {
   if (!player.paused && !player.ended) {
     try {
       player.pause();
+      shouldAutoResumeAfterTabReturn = true;
     } catch (_error) {
       // Ignore player pause errors.
     }
   }
+}
+
+function resumeVideoForTabReturn() {
+  if (!settings.masterBlockingEnabled || !settings.autoResumeVideoOnReturn || !isWatchPage()) {
+    shouldAutoResumeAfterTabReturn = false;
+    return;
+  }
+
+  if (!shouldAutoResumeAfterTabReturn) {
+    return;
+  }
+
+  const now = Date.now();
+  if (now - lastAutoResumeAt < 500) {
+    return;
+  }
+  lastAutoResumeAt = now;
+
+  const player = findYouTubeVideoElement();
+  if (!player || player.ended || !player.paused) {
+    shouldAutoResumeAfterTabReturn = false;
+    return;
+  }
+
+  player.play()
+    .then(() => {
+      shouldAutoResumeAfterTabReturn = false;
+    })
+    .catch(() => {
+      // Keep resume intent for next focus event if autoplay policy blocks first attempt.
+    });
 }
 
 function findYouTubeVideoElement() {
