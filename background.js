@@ -1,10 +1,11 @@
 const DEFAULT_SETTINGS = {
   masterBlockingEnabled: true,
   hideHomeFeed: true,
+  hideLeftNavbar: false,
   hideSidebarSuggestions: true,
   hideEngagementElements: true,
   blurThumbnails: true,
-  enableIntentionGate: true,
+  enableIntentionGate: false,
   disableAutoplay: true,
   hideEndscreen: true,
   hideFullscreenEndscreen: true,

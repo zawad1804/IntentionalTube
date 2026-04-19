@@ -1,10 +1,11 @@
 const DEFAULT_SETTINGS = {
   masterBlockingEnabled: true,
   hideHomeFeed: true,
+  hideLeftNavbar: false,
   hideSidebarSuggestions: true,
   hideEngagementElements: true,
   blurThumbnails: true,
-  enableIntentionGate: true,
+  enableIntentionGate: false,
   disableAutoplay: true,
   hideEndscreen: true,
   hideFullscreenEndscreen: true,
@@ -218,17 +219,19 @@ function renderFloatingTimer() {
     floatingTimerElement.style.cssText = [
       "position: fixed",
       "z-index: 2147483645",
-      "padding: 8px 12px",
+      "padding: 6px 10px",
       "border-radius: 999px",
-      "background: rgba(10, 30, 42, 0.92)",
-      "color: #f1fff8",
-      "font: 700 13px/1.2 'Segoe UI', Tahoma, sans-serif",
-      "box-shadow: 0 8px 18px rgba(0,0,0,.32)",
+      "background: rgba(12, 29, 42, 0.22)",
+      "border: 1px solid rgba(220, 240, 255, 0.24)",
+      "color: rgba(237, 248, 255, 0.92)",
+      "font: 600 12px/1.2 'Segoe UI', Tahoma, sans-serif",
+      "backdrop-filter: blur(6px)",
+      "box-shadow: 0 2px 8px rgba(0,0,0,.12)",
       "pointer-events: auto",
       "cursor: grab",
       "user-select: none",
-      "letter-spacing: 0.3px",
-      "max-width: 220px",
+      "letter-spacing: 0.15px",
+      "max-width: 180px",
       "white-space: nowrap",
       "overflow: hidden",
       "text-overflow: ellipsis"
@@ -465,6 +468,16 @@ function ensureStyles() {
     `);
   }
 
+  if (settings.hideLeftNavbar) {
+    cssRules.push(`
+      #guide-inner-content,
+      ytd-guide-renderer,
+      tp-yt-app-drawer#guide {
+        display: none !important;
+      }
+    `);
+  }
+
   if (settings.hideEngagementElements) {
     cssRules.push(`
       #comments,
@@ -694,13 +707,15 @@ function renderAmbientBanner() {
       "left: 50%",
       "transform: translateX(-50%)",
       "z-index: 2147483645",
-      "background: rgba(4, 36, 36, 0.85)",
-      "color: #e9fff4",
-      "padding: 8px 14px",
+      "background: rgba(9, 31, 45, 0.2)",
+      "border: 1px solid rgba(215, 236, 250, 0.24)",
+      "color: rgba(235, 248, 255, 0.9)",
+      "padding: 6px 12px",
       "border-radius: 999px",
-      "font: 600 13px/1.2 'Segoe UI', Tahoma, sans-serif",
-      "box-shadow: 0 8px 18px rgba(0,0,0,.3)",
-      "max-width: 78vw",
+      "font: 600 12px/1.2 'Segoe UI', Tahoma, sans-serif",
+      "backdrop-filter: blur(6px)",
+      "box-shadow: 0 2px 8px rgba(0,0,0,.1)",
+      "max-width: 62vw",
       "white-space: nowrap",
       "overflow: hidden",
       "text-overflow: ellipsis"

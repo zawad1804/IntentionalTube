@@ -1,6 +1,7 @@
 const TOGGLE_FIELDS = [
   ["masterBlockingEnabled", "Master blocking"],
   ["hideHomeFeed", "Hide home recommendations"],
+  ["hideLeftNavbar", "Hide left side panel/navbar"],
   ["hideSidebarSuggestions", "Hide related sidebar"],
   ["hideEngagementElements", "Hide comments, bell, live chat"],
   ["blurThumbnails", "Blur thumbnails"],
