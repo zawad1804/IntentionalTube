@@ -2,6 +2,35 @@
 
 IntentionalTube is a Chrome extension that reduces YouTube distractions and helps you stay focused with intentional viewing, focus timers, and lightweight progress tracking.
 
+## Project Website
+
+This repository now includes a public landing page at:
+
+- `site/index.html`
+
+It is designed so users can:
+
+- Discover what IntentionalTube does
+- Download the latest version
+- Follow quick install steps for Chrome or Edge
+
+The download button automatically prefers the latest GitHub Release asset (if published), and falls back to the latest `main` branch zip.
+
+## Host The Website (GitHub Pages)
+
+A GitHub Actions workflow is included at:
+
+- `.github/workflows/deploy-pages.yml`
+
+To enable hosting:
+
+1. Open your GitHub repository settings.
+2. Go to **Pages**.
+3. Under **Build and deployment**, select **GitHub Actions** as the source.
+4. Push to `main` (or manually run the workflow).
+
+After deployment, your site will be available at a GitHub Pages URL for this repository.
+
 ## What It Does
 
 - Blocks common distraction surfaces on YouTube.
