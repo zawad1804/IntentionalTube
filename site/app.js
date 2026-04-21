@@ -33,37 +33,11 @@ function applyFallbackMetadata() {
   downloadLink.href = fallbackZip;
 }
 
-async function enhanceFromGitHubReleaseApi() {
-  const url = `https://api.github.com/repos/${owner}/${repo}/releases/latest`;
-  const res = await fetch(url, {
-    headers: {
-      Accept: "application/vnd.github+json"
-    }
-  });
-
-  if (!res.ok) {
-    return;
-  }
-
-  const release = await res.json();
-  const assetZip = (release.assets || []).find((asset) => asset.name.toLowerCase().endsWith(".zip"));
-  const target = assetZip ? assetZip.browser_download_url : release.zipball_url;
-
-  downloadLink.href = target || fallbackZip;
-  releaseBadge.textContent = `Release: ${release.tag_name || "latest"}`;
-}
-
 async function init() {
   try {
     await loadLocalVersionMetadata();
   } catch (_error) {
     applyFallbackMetadata();
-  }
-
-  try {
-    await enhanceFromGitHubReleaseApi();
-  } catch (_error) {
-    // Keep local metadata based state when API is unavailable.
   }
 }
 
