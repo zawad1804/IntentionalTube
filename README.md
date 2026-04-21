@@ -16,6 +16,20 @@ It is designed so users can:
 
 The download button automatically prefers the latest GitHub Release asset (if published), and falls back to the latest `main` branch zip.
 
+## Automatic Zip Releases
+
+This repository includes an automated release workflow at:
+
+- `.github/workflows/release-extension.yml`
+
+How it works:
+
+1. On every push to `main` (excluding website-only changes), GitHub Actions builds a zip package of the extension.
+2. It creates or updates a GitHub Release tagged from `manifest.json` version (for example, `v1.1.0`).
+3. It uploads `IntentionalTube-v<version>.zip` as a release asset.
+
+This means your website download button can automatically serve the latest packaged extension release.
+
 ## Host The Website (GitHub Pages)
 
 A GitHub Actions workflow is included at:

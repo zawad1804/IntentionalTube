@@ -1,0 +1,50 @@
+name: Build Extension Zip Release
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "site/**"
+      - ".github/workflows/deploy-pages.yml"
+      - "README.md"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  package-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Read extension version
+        id: version
+        run: |
+          VERSION=$(node -p "require('./manifest.json').version")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag=v$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Build distributable zip
+        run: |
+          mkdir -p dist
+          ZIP_NAME="IntentionalTube-v${{ steps.version.outputs.version }}.zip"
+          zip -r "dist/$ZIP_NAME" . \
+            -x ".git/*" \
+               ".github/*" \
+               "site/*" \
+               "dist/*" \
+               "IntentionTube- YT Distraction Blocker.zip"
+
+      - name: Create or update GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.version.outputs.tag }}
+          name: IntentionalTube ${{ steps.version.outputs.tag }}
+          body: Automated extension package from the latest main branch.
+          artifacts: dist/*.zip
+          artifactErrorsFailBuild: true
+          allowUpdates: true
+          replacesArtifacts: true
+          makeLatest: true
