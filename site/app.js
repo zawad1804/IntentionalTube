@@ -1,46 +1,39 @@
 const owner = "zawad1804";
 const repo = "IntentionalTube";
 const fallbackVersion = "1.1.0";
+const fallbackTag = `v${fallbackVersion}`;
 
 const releaseBadge = document.getElementById("release-badge");
 const versionBadge = document.getElementById("version-badge");
 const downloadLink = document.getElementById("download-latest");
 
 const fallbackZip = `https://github.com/${owner}/${repo}/archive/refs/heads/main.zip`;
+const releaseAssetUrl = (tag) => `https://github.com/${owner}/${repo}/releases/download/${tag}/IntentionalTube-${tag}.zip`;
 
 downloadLink.href = fallbackZip;
 
-async function readVersionFrom(url) {
-  const res = await fetch(url, { cache: "no-store" });
+async function loadLocalVersionMetadata() {
+  const res = await fetch("./version.json", { cache: "no-store" });
   if (!res.ok) {
-    throw new Error("version endpoint unavailable");
+    throw new Error("version metadata unavailable");
   }
-  const manifest = await res.json();
-  return manifest.version;
+
+  const data = await res.json();
+  const version = data.version || fallbackVersion;
+  const tag = data.tag || `v${version}`;
+
+  versionBadge.textContent = `Version: ${version}`;
+  releaseBadge.textContent = `Release: ${tag}`;
+  downloadLink.href = releaseAssetUrl(tag);
 }
 
-async function loadVersion() {
-  const sources = [
-    `https://raw.githubusercontent.com/${owner}/${repo}/main/manifest.json`,
-    `https://cdn.jsdelivr.net/gh/${owner}/${repo}@main/manifest.json`
-  ];
-
-  for (const source of sources) {
-    try {
-      const version = await readVersionFrom(source);
-      if (version) {
-        versionBadge.textContent = `Version: ${version}`;
-        return;
-      }
-    } catch (_error) {
-      // Try the next source.
-    }
-  }
-
+function applyFallbackMetadata() {
   versionBadge.textContent = `Version: ${fallbackVersion}`;
+  releaseBadge.textContent = `Release: ${fallbackTag}`;
+  downloadLink.href = fallbackZip;
 }
 
-async function loadReleaseInfo() {
+async function enhanceFromGitHubReleaseApi() {
   const url = `https://api.github.com/repos/${owner}/${repo}/releases/latest`;
   const res = await fetch(url, {
     headers: {
@@ -49,8 +42,6 @@ async function loadReleaseInfo() {
   });
 
   if (!res.ok) {
-    releaseBadge.textContent = "Release: latest from main";
-    downloadLink.href = fallbackZip;
     return;
   }
 
@@ -63,7 +54,17 @@ async function loadReleaseInfo() {
 }
 
 async function init() {
-  await Promise.all([loadVersion(), loadReleaseInfo()]);
+  try {
+    await loadLocalVersionMetadata();
+  } catch (_error) {
+    applyFallbackMetadata();
+  }
+
+  try {
+    await enhanceFromGitHubReleaseApi();
+  } catch (_error) {
+    // Keep local metadata based state when API is unavailable.
+  }
 }
 
 init();

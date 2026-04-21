@@ -26,8 +26,9 @@ How it works:
 
 1. On every push to `main` (excluding website-only changes), GitHub Actions builds a zip package of the extension.
 2. It automatically increments the patch version in `manifest.json` (for example, `1.1.0` to `1.1.1`) and commits that change.
-3. It creates or updates a GitHub Release tagged from that new version (for example, `v1.1.1`).
-4. It uploads `IntentionalTube-v<version>.zip` as a release asset.
+3. It updates `site/version.json` so the website always shows the same version/tag.
+4. It creates or updates a GitHub Release tagged from that new version (for example, `v1.1.1`).
+5. It uploads `IntentionalTube-v<version>.zip` as a release asset.
 
 This means your website download button can automatically serve the latest packaged extension release.
 
