@@ -48,6 +48,7 @@ jobs:
                ".github/*" \
                "site/*" \
                "dist/*" \
+               "README.md" \
                "IntentionTube- YT Distraction Blocker.zip"
 
       - name: Create or update GitHub release
