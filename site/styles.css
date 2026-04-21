@@ -137,6 +137,11 @@ h1 {
   margin: 0 0 12px;
 }
 
+.section-copy {
+  margin: 0 0 14px;
+  color: var(--muted);
+}
+
 .feature-list,
 .steps {
   margin: 0;
@@ -148,6 +153,46 @@ h1 {
 .steps li {
   margin: 8px 0;
   line-height: 1.45;
+}
+
+.screenshot-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.two-up {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.three-up {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.shot {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.shot figcaption {
+  padding: 10px;
+  font-size: 0.87rem;
+  color: var(--muted);
+}
+
+.asset-note {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.88rem;
 }
 
 .footer {
@@ -179,5 +224,10 @@ h1 {
 
   .meta {
     gap: 10px;
+  }
+
+  .two-up,
+  .three-up {
+    grid-template-columns: 1fr;
   }
 }

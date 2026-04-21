@@ -16,6 +16,14 @@ It is designed so users can:
 
 The download button automatically prefers the latest GitHub Release asset (if published), and falls back to the latest `main` branch zip.
 
+If you want feature/installation screenshots to appear on the site, place these files in `site/assets/`:
+
+- `feature-popup-controls.png`
+- `feature-overlay-look.png`
+- `install-step-1-open-extensions.png`
+- `install-step-2-load-unpacked.png`
+- `install-step-3-select-folder.png`
+
 ## Automatic Zip Releases
 
 This repository includes an automated release workflow at:
