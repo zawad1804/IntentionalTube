@@ -40,6 +40,7 @@ jobs:
           fi
 
       - name: Build distributable zip
+        id: package
         run: |
           mkdir -p dist
           ZIP_NAME="IntentionalTube-v${{ steps.version.outputs.version }}.zip"
@@ -50,6 +51,19 @@ jobs:
                "dist/*" \
                "README.md" \
                "IntentionTube- YT Distraction Blocker.zip"
+          echo "zip_name=$ZIP_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: Publish latest website download file
+        run: |
+          mkdir -p site/downloads
+          cp "dist/${{ steps.package.outputs.zip_name }}" "site/downloads/IntentionalTube-latest.zip"
+          git add site/downloads/IntentionalTube-latest.zip
+          if git diff --cached --quiet; then
+            echo "No website download file changes to commit."
+          else
+            git commit -m "chore: update website latest extension zip to ${{ steps.version.outputs.tag }}"
+            git push
+          fi
 
       - name: Create or update GitHub release
         uses: ncipollo/release-action@v1

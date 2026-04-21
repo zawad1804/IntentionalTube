@@ -1,5 +1,3 @@
-const owner = "zawad1804";
-const repo = "IntentionalTube";
 const fallbackVersion = "1.1.0";
 const fallbackTag = `v${fallbackVersion}`;
 
@@ -7,8 +5,7 @@ const releaseBadge = document.getElementById("release-badge");
 const versionBadge = document.getElementById("version-badge");
 const downloadLink = document.getElementById("download-latest");
 
-const fallbackZip = `https://github.com/${owner}/${repo}/archive/refs/heads/main.zip`;
-const releaseAssetUrl = (tag) => `https://github.com/${owner}/${repo}/releases/download/${tag}/IntentionalTube-${tag}.zip`;
+const fallbackZip = "./downloads/IntentionalTube-latest.zip";
 
 downloadLink.href = fallbackZip;
 
@@ -24,7 +21,7 @@ async function loadLocalVersionMetadata() {
 
   versionBadge.textContent = `Version: ${version}`;
   releaseBadge.textContent = `Release: ${tag}`;
-  downloadLink.href = releaseAssetUrl(tag);
+  downloadLink.href = fallbackZip;
 }
 
 function applyFallbackMetadata() {

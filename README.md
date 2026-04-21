@@ -14,7 +14,13 @@ It is designed so users can:
 - Download the latest version
 - Follow quick install steps for Chrome or Edge
 
-The download button automatically prefers the latest GitHub Release asset (if published), and falls back to the latest `main` branch zip.
+The download button serves a website-hosted file at `site/downloads/IntentionalTube-latest.zip`.
+
+For private repositories, direct GitHub release/branch zip URLs may return `404` for users without repository access. To avoid this, the website download button uses:
+
+- `site/downloads/IntentionalTube-latest.zip`
+
+This file is automatically refreshed by the release workflow.
 
 If you want feature/installation screenshots to appear on the site, place these files in `site/assets/`:
 
