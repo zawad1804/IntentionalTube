@@ -35,7 +35,7 @@ body {
 }
 
 .container {
-  width: min(920px, 92vw);
+  width: min(1120px, 95vw);
   margin: 0 auto;
   padding: 56px 0 40px;
   position: relative;
@@ -163,7 +163,7 @@ h1 {
 
 .step-cards {
   display: grid;
-  gap: 14px;
+  gap: 18px;
   margin-top: 14px;
 }
 
@@ -200,6 +200,10 @@ h1 {
 .step-card img {
   display: block;
   width: 100%;
+  max-height: 430px;
+  object-fit: contain;
+  object-position: top center;
+  background: rgba(11, 35, 66, 0.08);
   border-radius: 10px;
   border: 1px solid var(--line);
 }
@@ -208,6 +212,14 @@ h1 {
   margin: 8px 0 0;
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+.install-flow {
+  grid-template-columns: 1fr;
+}
+
+.install-flow .step-card img {
+  max-height: 520px;
 }
 
 .shot {
@@ -254,6 +266,12 @@ h1 {
   }
 }
 
+@media (max-width: 920px) {
+  .two-up {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 680px) {
   .container {
     padding-top: 36px;
@@ -270,5 +288,10 @@ h1 {
   .two-up,
   .three-up {
     grid-template-columns: 1fr;
+  }
+
+  .step-card img,
+  .install-flow .step-card img {
+    max-height: 360px;
   }
 }
