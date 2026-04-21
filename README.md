@@ -26,8 +26,14 @@ To enable hosting:
 
 1. Open your GitHub repository settings.
 2. Go to **Pages**.
-3. Under **Build and deployment**, select **GitHub Actions** as the source.
-4. Push to `main` (or manually run the workflow).
+3. Under **Build and deployment**, set source to **Deploy from a branch**.
+4. Select branch **`gh-pages`** and folder **`/ (root)`**.
+5. Push to `main` (or manually run the workflow).
+
+If deployment fails due token permissions, also check:
+
+1. Repository **Settings > Actions > General**.
+2. Under **Workflow permissions**, choose **Read and write permissions**.
 
 After deployment, your site will be available at a GitHub Pages URL for this repository.
 
