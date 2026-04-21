@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "IntentionalTube",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Reduce YouTube distraction and reinforce study intentionality.",
   "permissions": [
     "storage",

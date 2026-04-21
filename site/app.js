@@ -1,5 +1,6 @@
 const owner = "zawad1804";
 const repo = "IntentionalTube";
+const fallbackVersion = "1.1.0";
 
 const releaseBadge = document.getElementById("release-badge");
 const versionBadge = document.getElementById("version-badge");
@@ -9,14 +10,34 @@ const fallbackZip = `https://github.com/${owner}/${repo}/archive/refs/heads/main
 
 downloadLink.href = fallbackZip;
 
-async function loadVersion() {
-  const url = `https://raw.githubusercontent.com/${owner}/${repo}/main/manifest.json`;
+async function readVersionFrom(url) {
   const res = await fetch(url, { cache: "no-store" });
   if (!res.ok) {
-    throw new Error("manifest unavailable");
+    throw new Error("version endpoint unavailable");
   }
   const manifest = await res.json();
-  versionBadge.textContent = `Version: ${manifest.version || "unknown"}`;
+  return manifest.version;
+}
+
+async function loadVersion() {
+  const sources = [
+    `https://raw.githubusercontent.com/${owner}/${repo}/main/manifest.json`,
+    `https://cdn.jsdelivr.net/gh/${owner}/${repo}@main/manifest.json`
+  ];
+
+  for (const source of sources) {
+    try {
+      const version = await readVersionFrom(source);
+      if (version) {
+        versionBadge.textContent = `Version: ${version}`;
+        return;
+      }
+    } catch (_error) {
+      // Try the next source.
+    }
+  }
+
+  versionBadge.textContent = `Version: ${fallbackVersion}`;
 }
 
 async function loadReleaseInfo() {
@@ -28,7 +49,8 @@ async function loadReleaseInfo() {
   });
 
   if (!res.ok) {
-    releaseBadge.textContent = "Release: no published release yet";
+    releaseBadge.textContent = "Release: latest from main";
+    downloadLink.href = fallbackZip;
     return;
   }
 
@@ -41,17 +63,7 @@ async function loadReleaseInfo() {
 }
 
 async function init() {
-  try {
-    await Promise.all([loadVersion(), loadReleaseInfo()]);
-  } catch (_error) {
-    if (versionBadge.textContent.includes("loading")) {
-      versionBadge.textContent = "Version: unknown";
-    }
-    if (releaseBadge.textContent.includes("checking")) {
-      releaseBadge.textContent = "Release: latest from main branch";
-    }
-    downloadLink.href = fallbackZip;
-  }
+  await Promise.all([loadVersion(), loadReleaseInfo()]);
 }
 
 init();
