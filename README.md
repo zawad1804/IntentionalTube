@@ -18,8 +18,10 @@ The download button automatically prefers the latest GitHub Release asset (if pu
 
 If you want feature/installation screenshots to appear on the site, place these files in `site/assets/`:
 
-- `feature-popup-controls.png`
-- `feature-overlay-look.png`
+- `feature-popup-blocking-controls.png`
+- `feature-popup-focus-intention-analytics.png`
+- `feature-study-search-gate.png`
+- `feature-study-watch-overlay.png`
 - `install-step-1-open-extensions.png`
 - `install-step-2-load-unpacked.png`
 - `install-step-3-select-folder.png`

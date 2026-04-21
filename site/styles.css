@@ -161,12 +161,53 @@ h1 {
   margin-top: 14px;
 }
 
+.step-cards {
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
+}
+
 .two-up {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .three-up {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.step-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.step-chip {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.step-card h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.step-card img {
+  display: block;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+
+.step-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
 .shot {
